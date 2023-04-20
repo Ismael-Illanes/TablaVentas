@@ -1,0 +1,62 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Lista stock tienda</h1>
+</div>
+
+<br /><br />
+
+<table id="miTabla" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Documento</th>
+                <th>Linea</th>
+                <th>Codigo Articulo</th>
+                <th>Descripcion</th>
+                <th>Codigo Familia</th>
+                <th>Cantidad</th>
+                <th>Numerico</th>
+                <th>Operador</th>
+                <th>Precio Unitario</th>
+                <th>Tipo Artículo</th>
+                <th>Iva Artículo</th>
+                <th>Caja</th>
+                <th>Z</th>
+                <th>Recargo Importe</th>
+                <th>Recargo</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var articulo in Model.Articulos.Take(25).Select((value, i) => new { i, value }))
+        {
+            <tr>
+                <td>@(articulo.i + 1)</td>
+                <td>@articulo.value.Documento</td>
+                <td>@articulo.value.Linea</td>
+                <td>@articulo.value.codigoarticulo</td>
+                <td>@articulo.value.DESCRIPCION</td>
+                <td>@articulo.value.CodigoFamilia</td>
+                <td>@articulo.value.Cantidad</td>
+                <td>@articulo.value.Numerico</td>
+                <td>@articulo.value.Operador</td>
+                <td>@articulo.value.PUnitario</td>
+                <td>@articulo.value.TipoArticulo</td>
+                <td>@articulo.value.IvaArticulo</td>
+                <td>@articulo.value.Caja</td>
+                <td>@articulo.value.Z</td>
+                <td>@articulo.value.RecargoImporte</td>
+                <td>@articulo.value.Recargo</td>
+                <td>@articulo.value.Observaciones</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
