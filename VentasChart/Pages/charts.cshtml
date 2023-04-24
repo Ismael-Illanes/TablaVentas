@@ -8,6 +8,11 @@
     <div height="500" width="500">
         <canvas id="myChart"></canvas>
     </div>
+
+</div>
+<div class="container-fluid text-center">
+    <button class="btn btn-primary" id="resetButton">Reset</button>
+    <button class="btn btn-primary" id="hideButton">Hide</button>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.0/Chart.js"></script>
@@ -60,12 +65,7 @@
     myChart.canvas.addEventListener("click", function (e) {
         var clickedBar = myChart.getElementAtEvent(e)[0];
 
-        if (!clickedBar) {
-            hiddenBars.forEach(function (index) {
-                myChart.getDatasetMeta(0).data[index].hidden = false;
-            });
-            hiddenBars = [];
-        } else {
+        if (clickedBar) {
             var index = clickedBar._index;
             if (hiddenBars.includes(index)) {
                 hiddenBars.splice(hiddenBars.indexOf(index), 1);
@@ -78,4 +78,26 @@
 
         myChart.update();
     });
+
+    var resetButton = document.getElementById("resetButton");
+    resetButton.addEventListener("click", function () {
+        bars.forEach(function (bar, index) {
+            if (!hiddenBars.includes(index)) {
+                bar.hidden = false;
+            }
+        });
+        hiddenBars = [];
+        myChart.update();
+    });
+
+
+    var hideButton = document.getElementById("hideButton");
+    hideButton.addEventListener("click", function () {
+        bars.forEach(function (bar) {
+            bar.hidden = true;
+        });
+        myChart.update();
+    });
+
+
 </script>
