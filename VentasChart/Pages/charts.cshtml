@@ -12,6 +12,20 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.0/Chart.js"></script>
 <script>
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color + "80";
+    }
+
+    var backgroundColors = [];
+    for (var i = 0; i < @Model.NumeroFamilias; i++) {
+        backgroundColors.push(getRandomColor());
+    }
+
     var ctx = document.getElementById("myChart").getContext("2d");
     var myChart = new Chart(ctx, {
         type: "doughnut",
@@ -20,11 +34,7 @@
             datasets: [{
                 label: 'Datos',
                 data: [@Model.DatosPorFamilia],
-                backgroundColor: [
-                    'rgb(66, 134, 244,0.5)',
-                    'rgb(74, 135, 72,0.5)',
-                    'rgb(229, 89, 50,0.5)'
-                ]
+                backgroundColor: backgroundColors
             }]
         },
         options: {
