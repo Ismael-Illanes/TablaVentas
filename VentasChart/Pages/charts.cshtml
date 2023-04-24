@@ -1,0 +1,40 @@
+﻿@page
+@model VentasChart.Pages.chartsModel
+
+<div class="container-fluid text-center">
+    <h1>Gráficos tienda</h1>
+    <p>de @Model.Articulos.Count() artículos.</p>
+    <p>Mostrando la cantidad de artículos por familia:</p>
+    <div height="500" width="500">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.0/Chart.js"></script>
+<script>
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: Array.from({ length: @Model.NumeroFamilias }, (_, i) => `Familia ${i + 1}`),
+            datasets: [{
+                label: 'Datos',
+                data: [@Model.DatosPorFamilia],
+                backgroundColor: [
+                    'rgb(66, 134, 244,0.5)',
+                    'rgb(74, 135, 72,0.5)',
+                    'rgb(229, 89, 50,0.5)'
+                ]
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>

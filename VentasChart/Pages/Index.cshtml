@@ -4,14 +4,13 @@
     ViewData["Title"] = "Home page";
 }
 
-
 <div class="text-center">
     <h1 class="display-4">Lista stock tienda</h1>
 </div>
 
 <br /><br />
 
-<table id="miTabla" class="table table-bordered table-responsive">
+<table id="myTable" class="display table table-bordered table-responsive">
         <thead>
             <tr>
                 <th></th>
@@ -34,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach (var articulo in Model.Articulos.Take(25).Select((value, i) => new { i, value }))
+        @foreach (var articulo in Model.Articulos.Take(1000).Select((value, i) => new { i, value }))
         {
             <tr>
                 <td>@(articulo.i + 1)</td>
@@ -58,3 +57,15 @@
         }
         </tbody>
     </table>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+        });
+
+    });
+    </script>
