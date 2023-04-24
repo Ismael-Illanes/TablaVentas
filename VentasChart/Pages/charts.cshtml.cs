@@ -34,5 +34,5 @@ namespace VentasChart.Pages
             DatosPorFamilia = string.Join(",", Articulos.GroupBy(lv => lv.CodigoFamilia).Select(g => g.Count()));
 
         }
-    } }
-
+    }
+}

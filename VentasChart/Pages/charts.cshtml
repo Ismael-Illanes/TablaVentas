@@ -3,7 +3,7 @@
 
 <div class="container-fluid text-center">
     <h1>Gráficos tienda</h1>
-    <p>de @Model.Articulos.Count() artículos.</p>
+    <p>de @Model.Articulos.Count() artículos hay @Model.NumeroFamilias familias de artículos.</p>
     <p>Mostrando la cantidad de artículos por familia:</p>
     <div height="500" width="500">
         <canvas id="myChart"></canvas>
@@ -32,8 +32,7 @@
         data: {
             labels: Array.from({ length: @Model.NumeroFamilias }, (_, i) => `Familia ${i + 1}`),
             datasets: [{
-                label: 'Datos',
-                data: [@Model.DatosPorFamilia],
+                label: 'Datos', data: [@Model.DatosPorFamilia],
                 backgroundColor: backgroundColors
             }]
         },
@@ -46,5 +45,37 @@
                 }]
             }
         }
+    });
+
+    var bars = myChart.getDatasetMeta(0).data;
+
+    bars.forEach(function (bar, index) {
+        bar._index = index;
+    });
+
+    var hiddenBars = [];
+
+    myChart.update();
+
+    myChart.canvas.addEventListener("click", function (e) {
+        var clickedBar = myChart.getElementAtEvent(e)[0];
+
+        if (!clickedBar) {
+            hiddenBars.forEach(function (index) {
+                myChart.getDatasetMeta(0).data[index].hidden = false;
+            });
+            hiddenBars = [];
+        } else {
+            var index = clickedBar._index;
+            if (hiddenBars.includes(index)) {
+                hiddenBars.splice(hiddenBars.indexOf(index), 1);
+                clickedBar.hidden = false;
+            } else {
+                hiddenBars.push(index);
+                clickedBar.hidden = true;
+            }
+        }
+
+        myChart.update();
     });
 </script>
